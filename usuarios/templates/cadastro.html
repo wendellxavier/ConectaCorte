@@ -1,4 +1,9 @@
 {% extends 'base.html'%}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'usuarios/css/usuarios.css' %}">
+{% endblock 'head' %}
 
 {% block 'title' %}Cadastro{% endblock 'title'%}
 
