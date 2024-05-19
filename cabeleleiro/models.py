@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Especialidades(models.Model):
     especialidade = models.CharField(max_length=50)
@@ -15,7 +16,15 @@ class DadosCabeleleiro(models.Model):
     cep = models.CharField(max_length=15)
     rua = models.CharField(max_length=100)
     bairro = models.CharField(max_length=100)
-    numero = models.IntegerField(max_length=100)
+    numero = models.IntegerField()
     anos_de_experiencia = models.IntegerField()
-    rg = models.ImageField()
+    rg = models.ImageField(upload_to='rgs')
+    certificado_cabeleleiro = models.ImageField(upload_to='certificado')
+    foto = models.ImageField(upload_to='foto_perfil')
+    descricao = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    especialidade = models.ForeignKey(Especialidades, models.DO_NOTHING)
+    
+    def __str__(self):
+        self.user.username
     
