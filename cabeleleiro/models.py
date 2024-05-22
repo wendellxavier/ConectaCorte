@@ -11,6 +11,16 @@ class Especialidades(models.Model):
     def __str__(self):
         return self.especialidade
     
+class TipoCabelos(models.Model):
+    tipoCabelo = models.CharField(max_length=50)
+    
+    class Meta:
+        verbose_name = 'Cabelo'
+        verbose_name_plural = 'Cabelos'
+        
+    def __str__(self):
+        return self.tipoCabelos
+    
 class DadosCabeleleiro(models.Model):
     nome = models.CharField(max_length=100)
     cep = models.CharField(max_length=15)
@@ -26,5 +36,5 @@ class DadosCabeleleiro(models.Model):
     especialidade = models.ForeignKey(Especialidades, models.DO_NOTHING)
     
     def __str__(self):
-        self.user.username
+        return self.user.username
     
