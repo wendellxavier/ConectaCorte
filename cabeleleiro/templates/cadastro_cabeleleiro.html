@@ -24,7 +24,7 @@
             <input
               type="number"
               class="form-control shadow-main-color"
-              name="anosexp"
+              name="anos_de_experiencia"
               placeholder="anos de experiencia"
             />
           </div>
@@ -109,7 +109,7 @@
             <label for="">Especialidade:</label>
             <select name="especialidade" class="form-select" id="">
                 {% for i in especialidades %}
-                    <option value="">{{i.especialidade}}</option>
+                    <option value="{{i.id}}">{{i.especialidade}}</option>
                 {% endfor %}
             </select>
         <br />
@@ -117,7 +117,7 @@
             <label for="">Tipos de cabelos:</label>
             <select name="tipoCabelo" class="form-select" id="">
                 {% for i in tipoCabelos %}
-                    <option value="">{{i.tipoCabelo}}</option>
+                    <option value="{{i.id}}">{{i.tipoCabelo}}</option>
                 {% endfor %}
             </select>
         <br />
