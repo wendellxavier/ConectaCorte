@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import Especialidades, TipoCabelos, DadosCabeleleiro
+from .models import Especialidades, TipoCabelos, DadosCabeleleiro, is_cabeleleiro, DatasAbertas
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.messages import constants
+from datetime import datetime
+
 
 def cadastro_cabeleleiro(request):
     
-    dc = DadosCabeleleiro.objects.filter(user=request.user)
-    if dc.exists():
+    if is_cabeleleiro(request.user):
         messages.add_message(request, constants.WARNING, 'Você já esta cadastrado')
         return redirect('/cabeleleleiro/abrir_horario/')
     
@@ -54,3 +55,28 @@ def cadastro_cabeleleiro(request):
         return redirect('/cabeleleiro/abrir_horario/')
     else:
         return redirect('/cabeleleiro/cadastro_cabeleleiro')
+    
+    
+    
+def abrir_horario(request):
+    
+    if not is_cabeleleiro(request.user):
+        messages.add_message(request, constants.WARNING, 'Só cabeleleiro cadastrado podem abrir horários')
+        return redirect ('/usuarios/sair/')
+    
+    if request.method == "GET":
+        dados_cabeleleiros = DadosCabeleleiro.objects.get(user=request.user)
+        return render(request, 'abrir_horario.html', {'dados_cabeleleiros': dados_cabeleleiros})
+    elif request.method == "POST":
+        data = request.POST.get('data')
+        data_formatada = datetime.strptime(data, "%Y-%m-%dT%H:%M")
+        
+        if data_formatada <= datetime.now():
+            messages.add_message(request, constants.ERROR, 'A data não pode ser anterior que a data atual.')
+            return redirect('/cabeleleiro/abrir_horario')
+        
+        horario_abrir = DatasAbertas(data=data, user=request.user)
+        
+        horario_abrir.save()
+        messages.add_message(request, constants.SUCCESS, 'Horário salvo com sucesso')
+        return redirect('/cabeleleiro/abrir_horario/')

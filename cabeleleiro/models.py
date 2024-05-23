@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+def is_cabeleleiro(user):
+    return DadosCabeleleiro.objects.filter(user=user).exists()
 class Especialidades(models.Model):
     especialidade = models.CharField(max_length=50)
     
@@ -39,3 +42,11 @@ class DadosCabeleleiro(models.Model):
     def __str__(self):
         return self.user.username
     
+    
+class DatasAbertas(models.Model):
+    data = models.DateField()
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    agendado = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return self.user.username
