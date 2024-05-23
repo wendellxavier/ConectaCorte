@@ -5,6 +5,12 @@ from django.contrib import messages
 from django.contrib.messages import constants
 
 def cadastro_cabeleleiro(request):
+    
+    dc = DadosCabeleleiro.objects.filter(user=request.user)
+    if dc.exists():
+        messages.add_message(request, constants.WARNING, 'Você já esta cadastrado')
+        return redirect('/cabeleleleiro/abrir_horario/')
+    
     if request.method == "GET":
         especialidades = Especialidades.objects.all()
         tipoCabelos = TipoCabelos.objects.all()
@@ -47,4 +53,4 @@ def cadastro_cabeleleiro(request):
         messages.add_message(request, constants.SUCCESS, 'Dados salvo com sucesso')
         return redirect('/cabeleleiro/abrir_horario/')
     else:
-        return redirect('cabeleleiro/cadastro_cabeleleiro')
+        return redirect('/cabeleleiro/cadastro_cabeleleiro')
