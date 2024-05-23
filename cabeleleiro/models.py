@@ -44,7 +44,7 @@ class DadosCabeleleiro(models.Model):
     
     
 class DatasAbertas(models.Model):
-    data = models.DateField()
+    data = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     agendado = models.BooleanField(default=False)
     

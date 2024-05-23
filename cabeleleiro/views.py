@@ -79,4 +79,4 @@ def abrir_horario(request):
         
         horario_abrir.save()
         messages.add_message(request, constants.SUCCESS, 'Horário salvo com sucesso')
-        return redirect('/cabeleleiro/abrir_horario/')
+        return redirect('/cabeleleiro/abrir_horario')
