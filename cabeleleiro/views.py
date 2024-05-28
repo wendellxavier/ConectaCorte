@@ -66,7 +66,8 @@ def abrir_horario(request):
     
     if request.method == "GET":
         dados_cabeleleiros = DadosCabeleleiro.objects.get(user=request.user)
-        return render(request, 'abrir_horario.html', {'dados_cabeleleiros': dados_cabeleleiros})
+        datas_abertas = DatasAbertas.objects.filter(user=request.user)
+        return render(request, 'abrir_horario.html', {'dados_cabeleleiros': dados_cabeleleiros, 'datas_abertas': datas_abertas})
     elif request.method == "POST":
         data = request.POST.get('data')
         data_formatada = datetime.strptime(data, "%Y-%m-%dT%H:%M")
