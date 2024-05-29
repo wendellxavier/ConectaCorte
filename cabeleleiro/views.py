@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.messages import constants
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 
 def cadastro_cabeleleiro(request):
@@ -57,7 +58,7 @@ def cadastro_cabeleleiro(request):
         return redirect('/cabeleleiro/cadastro_cabeleleiro')
     
     
-    
+@login_required
 def abrir_horario(request):
     
     if not is_cabeleleiro(request.user):
