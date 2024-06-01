@@ -15,23 +15,18 @@
       <p style="font-size: 25px" class="p-bold">
         Olá, <span class="color-dark">{{request.user.username}}.</span>
       </p>
-      <form action="" post="GET">
-        <input
-          type="text"
-          class="form-control shadow-main-color"
-          placeholder="Busque por profissionais ..."
-          name="medico"
-        />
+      <form action="{% url 'home' %}" post="GET">
+        <input type="text" class="form-control shadow-main-color" placeholder="Busque por profissionais ..."name="cabeleleiro"/>
         <br />
         <div class="especialidades">
           {% for especialidade in especialidades %}
-              <input type="checkbox" name="especialidades" value="" />
+              <input type="checkbox" name="especialidades" value="{{especialidade.id}}" />
               <span class="badge bg-secondary">{{especialidade.especialidade}}</span>
             {% endfor %}
         </div>
         <div class="especialidades">
           {% for tipoCabelo in tiposCabelos %}
-              <input type="checkbox" name="especialidades" value="" />
+              <input type="checkbox" name="especialidades" value="{{tipoCabelo.id}}" />
               <span class="badge bg-secondary">{{tipoCabelo.tipoCabelo}}</span>
             {% endfor %}
         </div>
