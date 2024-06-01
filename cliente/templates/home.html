@@ -24,10 +24,15 @@
         />
         <br />
         <div class="especialidades">
-          <input type="checkbox" name="especialidades" value="" />
-            {% for i in cabeleleiros %}
-              <span class="badge bg-secondary">{{i.especialidade}}</span>
-              <span class="badge bg-secondary">{{i.tipoCabelo}}</span>
+          {% for especialidade in especialidades %}
+              <input type="checkbox" name="especialidades" value="" />
+              <span class="badge bg-secondary">{{especialidade.especialidade}}</span>
+            {% endfor %}
+        </div>
+        <div class="especialidades">
+          {% for tipoCabelo in tiposCabelos %}
+              <input type="checkbox" name="especialidades" value="" />
+              <span class="badge bg-secondary">{{tipoCabelo.tipoCabelo}}</span>
             {% endfor %}
         </div>
         <br />
@@ -56,8 +61,12 @@
             <p><i class="bi bi-map icon-main"></i> Rua:&nbsp&nbsp{{cabeleleiro.rua}} {{cabeleleiro.numero}}.</p>
             <p><i class="bi bi-geo-alt-fill"></i> Bairro:&nbsp&nbsp{{cabeleleiro.bairro}}</p>
             <p>
-              <i class="bi bi-calendar2-week icon-main"></i>&nbsp&nbspProxima
-              data: 00/00/0000
+              <i class="bi bi-calendar2-week icon-main"></i>&nbsp&nbspProxima data: 
+              {% if cabeleleiro.proxima_data %}
+                {{cabeleleiro.proxima_data}}
+              {% else %}
+                Aguarde uma data
+              {% endif %}
 
               <a href="#" class="btn btn-success btn-dark-color">Agendar</a>
             </p>
