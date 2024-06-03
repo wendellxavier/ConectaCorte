@@ -9,7 +9,7 @@ def home(request):
         tipoCabelos_filtrar = request.GET.getlist('tiposCabelos')
         cabeleleiros = DadosCabeleleiro.objects.all()
         
-        if cabeleleiro_filtar:
+        if cabeleleiro_filtrar:
             cabeleleiros = cabeleleiros.filter(nome__icontains=cabeleleiro_filtrar)
             
         if especialidade_filtrar:
