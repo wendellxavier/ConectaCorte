@@ -18,6 +18,9 @@ def home(request):
             
         if especialidade_filtrar:
             cabeleleiros = cabeleleiros.filter(especialidade_id__in=especialidade_filtrar)
+            
+        if tipoCabelos_filtrar:
+            cabeleleiros = cabeleleiros.filter(tipoCabelos_id__in=tipoCabelos_filtrar)
         
         especialidades = Especialidades.objects.all()
         tiposCabelos = TipoCabelos.objects.all()
@@ -42,3 +45,9 @@ def agendar_horario(request, id_data_aberta):
         data_aberta.save()
         messages.add_message(request, constants.SUCCESS, 'Atendimento agendado com sucesso')
         return redirect('/cliente/meus_atendimentos')
+    
+    
+def meus_atendimentos(request):
+    meus_atendimentos = Atendimento.objects.filter(cliente=request.user).filter(data_aberta__data__gte=datetime.now())
+    print(meus_atendimentos)
+    return render(request, 'meus_atendimentos.html', {'meus_atendimentos': meus_atendimentos})
