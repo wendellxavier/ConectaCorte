@@ -10,7 +10,7 @@
 {% endblock 'head' %} {% block 'body' %}
 <div class="container">
   <br />
-  <h2><span class="color-dark">Suas consultas</span></h2>
+  <h2><span class="color-dark">Seus Atendimentos</span></h2>
   <div class="row">
     <div class="col-md">
       <input
@@ -35,11 +35,11 @@
     </div>
   </div>
   <br />
-  <div class="list-minhas-consultas">
+  <div class="list-meus-atendimentos">
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">Médico</th>
+          <th scope="col">Cabeleleiro</th>
           <th scope="col">Status</th>
           <th scope="col">Data</th>
         </tr>
@@ -47,9 +47,9 @@
       <tbody>
         {% for atendimento in meus_atendimentos %}
             <tr>
-            <td><a href="#">Cabeleleiro(a).{{atendimento.data_aberta.user}}</a></td>
-            <td>{{atendimento.get_status_display}}</td>
-            <td>{{atendimento.data_aberta.data}}</td>
+              <td><a href="#">Cabeleleiro(a).{{atendimento.data_aberta.user}}</a></td>
+              <td>{{atendimento.get_status_display}}</td>
+              <td>{{atendimento.data_aberta.data}}</td>
             </tr>
         {% endfor %}
       </tbody>

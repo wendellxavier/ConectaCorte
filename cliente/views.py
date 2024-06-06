@@ -49,5 +49,5 @@ def agendar_horario(request, id_data_aberta):
     
 def meus_atendimentos(request):
     meus_atendimentos = Atendimento.objects.filter(cliente=request.user).filter(data_aberta__data__gte=datetime.now())
-    print(meus_atendimentos)
+    
     return render(request, 'meus_atendimentos.html', {'meus_atendimentos': meus_atendimentos})
