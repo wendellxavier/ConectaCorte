@@ -3,8 +3,9 @@ from .models import Especialidades, TipoCabelos, DadosCabeleleiro, is_cabeleleir
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.messages import constants
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.contrib.auth.decorators import login_required
+from cliente.models import Atendimento
 
 
 def cadastro_cabeleleiro(request):
@@ -17,6 +18,7 @@ def cadastro_cabeleleiro(request):
         especialidades = Especialidades.objects.all()
         tipoCabelos = TipoCabelos.objects.all()
         return render (request, 'cadastro_cabeleleiro.html', {'especialidades': especialidades, 'tipoCabelos': tipoCabelos})
+    
     elif request.method == "POST":
         if request.user.is_authenticated:
             user_id = request.user.id
@@ -82,3 +84,17 @@ def abrir_horario(request):
         horario_abrir.save()
         messages.add_message(request, constants.SUCCESS, 'Horário salvo com sucesso')
         return redirect('/cabeleleiro/abrir_horario')
+    
+    
+def atendimentos_cabeleleiro(request):
+    if not is_cabeleleiro(request.user):
+        messages.add_message(request, constants.WARNING, 'Só cabeleleiro cadastrado podem abrir horários')
+        return redirect ('/usuarios/sair/')
+    
+    hoje = datetime.now().date()
+    
+    atendimentos_hoje = Atendimento.objects.filter(data_aberta__user=request.user).filter(data_aberta__data__gte=hoje).filter(data_aberta__data__lt=hoje + timedelta(days=1))
+    atendimentos_restantes = Atendimento.objects.exclude(id__in=atendimentos_hoje.values('id'))
+    
+    
+    return render(request, 'atendimentos_cabeleleiro.html', {'atendimentos_hoje': atendimentos_hoje, 'atendimentos_restantes': atendimentos_restantes})
